@@ -1,0 +1,7 @@
+.countryList {
+    justify-content: space-around;
+}
+
+.borderList li {
+    list-style-type: none;
+}
