@@ -7,24 +7,31 @@ import './components.css'
 
 
 const CountryDetails = (props) => {
-    const foundCountry = JSON.filter(country => country.cca3 === props.match.params.id)
-    console.log('found country', foundCountry)
-    console.log('first item of found country', foundCountry[0])
+    const getCountry = JSON.filter(country => country.cca3 === props.match.params.id) //'Andorra'
+    let foundCountry = getCountry[0] //.filter() creates an array, thus we need the first an donly item
+
+    //if borders we need their properties
+    if(foundCountry.borders) {
+        foundCountry.borders.forEach((border, index) => {
+            const getBorderCountry = JSON.filter(country => country.cca3 === border)
+            foundCountry.borders.splice(index, 1, getBorderCountry[0])
+        })
+    }
 
     return (
         <div className="col-7">
-            <h1>{foundCountry[0].name.common}</h1>
+            <h1>{foundCountry.name.common}</h1>
             <table className="table">
               <thead></thead>
               <tbody>
                 <tr>
                   <td style={{width: "30%"}}>Capital</td>
-                  <td>{foundCountry[0].capital[0]}</td>
+                  <td>{foundCountry.capital[0]}</td>
                 </tr>
                 <tr>
                   <td>Area</td>
                   <td>
-                    {foundCountry[0].area}
+                    {foundCountry.area}
                     <sup>2</sup>
                   </td>
                 </tr>
@@ -32,9 +39,9 @@ const CountryDetails = (props) => {
                   <td>Borders</td>
                   <td>
                     <ul className='borderList'>
-                    {foundCountry[0].borders.map(border => {
+                    {foundCountry.borders.map(border => {
                         return (
-                            <li key={border}><Link to={border}>{border}</Link></li>
+                            <li key={border.cca3}><Link to={border.cca3}>{border.name.common}</Link></li>
                         )
                     })}
                     </ul>
