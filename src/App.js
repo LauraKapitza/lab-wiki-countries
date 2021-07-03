@@ -4,10 +4,8 @@ import CountriesList from './components/CountriesList.js';
 import CountryDetails from './components/CountryDetails.js'
 
 import {
-  // BrowserRouter as Router,
   Switch,
   Route,
-  // Link
 } from "react-router-dom";
 
 function App() {
